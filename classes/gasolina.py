@@ -1,5 +1,5 @@
-import random, pygame
-from caem import Caem
+import random, time
+from classes.caem import Caem
 
 class Gasolina(Caem): 
     def __init__(self, dims, pos, velY):
@@ -8,7 +8,8 @@ class Gasolina(Caem):
 
         self.combustivel = 100
 
-        self.coletada = False
+        self.inicio_abastecer = None
+        self.tempo_abastecer = 0.25
 
     def gera_gasolina(mapa):
 
@@ -25,3 +26,12 @@ class Gasolina(Caem):
                 lista_gasolina.append(teste_gasolina)
                 quantidade_gasolina += 1
         return lista_gasolina
+    
+    def atualiza_abastecer(self, player):
+        if player.colisaoMark(self):
+            if self.inicio_abastecer is None:
+                self.inicio_abastecer = time.time()
+            
+            while (time.time() - self.inicio_abastecer) >= self.tempo_abastecer:
+                self.combustivel += 5
+        

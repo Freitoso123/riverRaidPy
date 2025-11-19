@@ -26,7 +26,8 @@ lastShot = 0
 helicopteros = pygame.sprite.Group()
 posicoes = []
 
-gas = Gasolina.gera_gasolina(mapa)
+#gas = Gasolina.gera_gasolina(mapa)
+tempo_coleta = 0.2
 
 estado_atual = EstadoJogo.SELECAO_PRINCIPAL
 selecionado = 0
@@ -51,6 +52,9 @@ def selecao_desenho():
     
     elif estado_atual == EstadoJogo.SELECAO_DIFICULDADE:
         Selecao().desenhar_selecao(gameDisplay, selecionado, "dificuldade")
+
+    elif estado_atual == EstadoJogo.SELECAO_TRY_AGAIN:
+        Selecao().desenhar_selecao(gameDisplay, selecionado, "try_again")
 
 def telainicial():
     global estado_atual, selecionado
@@ -155,6 +159,45 @@ def telainicial():
 
 telainicial()
 
+def Gameover():
+    global estado_atual, selecionado
+
+    img_fundo = pygame.image.load("sprites/animação\game over/fundo_game_over.png")
+    fundo = pygame.transform.scale(img_fundo, (800, 600))
+
+    estado_atual = EstadoJogo.SELECAO_TRY_AGAIN
+    selecionado = 0
+
+    while True:
+        tempo.tick(30)
+        gameDisplay.fill("royalblue4")
+        gameDisplay.blit(fundo, (0, 0))
+
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            #=======SELEÇÃO_GAME_OVER=======
+            elif evento.type == pygame.KEYDOWN:
+                if estado_atual == EstadoJogo.SELECAO_TRY_AGAIN:
+                    if evento.key == pygame.K_UP or evento.key == pygame.K_w:
+                        selecionado = (selecionado - 1) % 2
+                        print(selecionado)
+                    elif evento.key == pygame.dK_DOWN or evento.key == pygame.K_s:
+                        selecionado = (selecionado + 1) % 2
+                        print(selecionado)
+                    elif evento.key == pygame.K_RETURN:
+                        if selecionado == 0: 
+                            estado_atual = EstadoJogo.SELECAO_PRINCIPAL
+                            telainicial()
+                        elif selecionado == 1:  
+                            pygame.quit()
+                            quit()
+                        
+        selecao_desenho()
+
+        pygame.display.update()
+
 while True:
 
     for evento in pygame.event.get():
@@ -200,21 +243,19 @@ while True:
             helic_list.remove(helic)
 
         col_player = helic.colisaoMask(player)
-        '''if col_player == True:
-            sys.exit()'''
+        if col_player == True:
+            Gameover()    
     #gera gasolina
-    for gasolina in gas:
+    '''for gasolina in gas:
         gasolina.queda(tecla)
         gasolina.imprimir()
-
-        if player.colisaoMask(gasolina):
-            gasolina.coleta = True
-            gas.remove(gasolina)
+        gasolina.atualiza_abastecer(player)
         
         if gasolina.y > 600:
-            gas.remove(gasolina)
-    if len(gas) < 1:
+            gas.remove(gasolina)'''
+
+    '''if len(gas) < 1:
         novas_gasolinas = Gasolina.gera_gasolina(fase)
-        gas.extend(novas_gasolinas)
+        gas.extend(novas_gasolinas)'''
 
     pygame.display.update()
