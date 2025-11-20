@@ -18,8 +18,9 @@ posicoes = []
 helicopteros = []
 
 def gera_heli_tela(qnt):
-    helicopteros.clear()
-    posicoes.clear()
+    if qnt > 1:
+        helicopteros.clear()
+        posicoes.clear()
     #cria uma posição aleatória para o helicoptero
     for i in range(qnt):
         posicoes.append([-1*random.randint(0, 1000), random.randint(0, 500)])
