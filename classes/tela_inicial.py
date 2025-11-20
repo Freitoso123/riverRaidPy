@@ -14,9 +14,12 @@ tempo = pygame.time.Clock()
 estado_atual = EstadoJogo.SELECAO_PRINCIPAL
 selecionado = 0
 
+posicoes = []
+helicopteros = []
+
 def gera_heli_tela(qnt):
-    helicopteros = []
-    posicoes = []
+    helicopteros.clear()
+    posicoes.clear()
     #cria uma posição aleatória para o helicoptero
     for i in range(qnt):
         posicoes.append([-1*random.randint(0, 1000), random.randint(0, 500)])
@@ -78,7 +81,7 @@ def telainicial():
         #=======Helicopteros======
         for heli in helicopteros:
             
-            heli.printa_helicoptero(0.2)
+            heli.printa_helicoptero(1)
             size = heli.image.get_width()
             if size <= 42:
                 heli.rect.x += 2

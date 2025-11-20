@@ -20,7 +20,7 @@ class Helicoptero_tela():
         self.animado = self.heli[self.imagem_inicial]
 
         self.rect = self.animado.get_rect()
-        self.rect.topleft = [pos_anim_x, pos_anim_y]
+        self.rect.center = [pos_anim_x, pos_anim_y]
 
     def printa_helicoptero(self, velocidade):
         

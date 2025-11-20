@@ -1,5 +1,5 @@
 import pygame
-from classes.tela_inicial import telainicial, Gameover
+from classes.tela_inicial import *
 from classes.jogando import *
 
 #separei o main como meu controle principal de estados, para que fosse possivel transitar entre as telas sem nenhum problema
@@ -14,7 +14,8 @@ class Estados:
 #determina o primeiro estado
 estado = Estados.estado_menu
 
-def Estados_do_jogo():    
+def Estados_do_jogo():   
+
     estado_atual = estado
 
     while True:

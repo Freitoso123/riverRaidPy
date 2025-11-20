@@ -1,4 +1,4 @@
-import pygame, random, sys, time
+import pygame, random, time
 from classes.aviao import Aviao
 from classes.helic import *
 from classes.mapa import *
