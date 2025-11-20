@@ -2,6 +2,7 @@ import pygame, random
 
 class Nuvens_tela():
     def gera_nuvem_tela():
+        #lista de imagens
         caminhos = [
             "sprites/animação/nuvens/nuvem_0.png",
             "sprites/animação/nuvens/nuvem_1.png",

@@ -2,7 +2,10 @@ import pygame, random, sys, time
 from classes.aviao import Aviao
 from classes.helic import *
 
+#criei um função separada para a lógica do jogo por conta da administração de estados do jogo, para que fosse possivel
+#recomeçar o jogo
 def Jogando(dif):
+    #começo recebendo a dificuldade, que veio da minha tela inicial
     pygame.init()
 
     largurat = 800
@@ -41,6 +44,7 @@ def Jogando(dif):
             lastShot = time.time()
 
         if random.randint(0,100) > 1:
+            #aquie eu recebo a dificuldade selecionada
             helic_list.append(gerarhelic(dif))
         
         #imprime as entidades em vetores
@@ -66,5 +70,6 @@ def Jogando(dif):
 
             col_player = helic.colisaoMask(player)
             if col_player == True:
+                #não retorna nada pois o proximo estado é sempre game_over
                 return
         pygame.display.update()

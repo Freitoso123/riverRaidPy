@@ -10,12 +10,14 @@ alturat = 600
 gameDisplay = pygame.display.set_mode((largurat, alturat))
 tempo = pygame.time.Clock() 
 
+#o primeiro estado é onde tem o start e o sair e determina o primeiro selecionado 
 estado_atual = EstadoJogo.SELECAO_PRINCIPAL
 selecionado = 0
 
 def gera_heli_tela(qnt):
     helicopteros = []
     posicoes = []
+    #cria uma posição aleatória para o helicoptero
     for i in range(qnt):
         posicoes.append([-1*random.randint(0, 1000), random.randint(0, 500)])
     for x, y in posicoes:
@@ -23,6 +25,7 @@ def gera_heli_tela(qnt):
     return helicopteros
 
 def gera_nuvem(qnt):
+    #recebo a lsita de nuvens e depoias às adiciono em uma lista em ordem aleatória e tamanho determinado
     imagens_nuvem = Nuvens_tela.gera_nuvem_tela()
     nuvens = []
     for i in range(qnt):
@@ -31,6 +34,7 @@ def gera_nuvem(qnt):
     return nuvens
 
 def selecao_desenho():
+    #mando os valores requisitados na minhas seleção conforme o estado
     if estado_atual == EstadoJogo.SELECAO_PRINCIPAL:
         Selecao().desenhar_selecao(gameDisplay, selecionado, "principal")
     
@@ -45,10 +49,10 @@ def telainicial():
 
     img_fundo = pygame.image.load("sprites/fundo.png")
     fundo = pygame.transform.scale(img_fundo, (800, 600))
-    
-
+    #devolve uma lista com os helicopters
     helicopteros = gera_heli_tela(10)
 
+    #devolve ma lista com as nuvens
     nuvem = gera_nuvem(7)
 
     bandeira_x = 500
@@ -68,7 +72,6 @@ def telainicial():
                 nuvem.remove((imagem, rect))
                 novas = gera_nuvem(1)
                 nuvem.append(novas[0])
-
             gameDisplay.blit(imagem, (rect.x, rect.y))
        
         
@@ -84,6 +87,7 @@ def telainicial():
             else:
                 heli.rect.x += 6
             
+            #corrigido 1, agora ele não printa o grupo em si, ele printa imagem à imagem nas devidas posições
             gameDisplay.blit(heli.animado, (heli.rect.x, heli.rect.y))
 
         if heli.rect.x >= 800:
@@ -96,6 +100,7 @@ def telainicial():
             bandeira_x -= 4
         bandeira.rect.x = bandeira_x
         bandeira.printa_bandeira(0.1)
+        #corrigido 2, agora ele não printa o grupo em si, ele printa imagem à imagem nas devidas posições
         gameDisplay.blit(bandeira.animado, (bandeira_x, bandeira_y))
 
         for evento in pygame.event.get():
@@ -105,6 +110,10 @@ def telainicial():
             #=======SELEÇÃO=======
             elif evento.type == pygame.KEYDOWN:
                 if estado_atual == EstadoJogo.SELECAO_PRINCIPAL:
+                    #aqui eu mudo o meu selecionado e divido pelo resto da divisão para que não saia da minha lista de
+                    #elementos, então nesse caso eu tenho o star e o sair, ou seja, 0 e 1 no meu vetor, e quando meu valor  
+                    #tenta ser 2, ele retorna ao 0. O mesmo valo para quando tentar ser -1
+                    #também vale para os que tem mais opções, basta mudar o valor da divisão conforme o tamanho
                     if evento.key == pygame.K_UP or evento.key == pygame.K_w:
                         selecionado = (selecionado - 1) % 2
                     elif evento.key == pygame.K_DOWN or evento.key == pygame.K_s:
@@ -113,21 +122,22 @@ def telainicial():
                     elif evento.key == pygame.K_RETURN:
                         if selecionado == 0: 
                             estado_atual = EstadoJogo.SELECAO_DIFICULDADE
+                        #aqui eu retorno "sair" para ser identificado no meu controle de estados
                         elif selecionado == 1:  
                             return "sair"
                         
                 elif estado_atual == EstadoJogo.SELECAO_DIFICULDADE:
                     if evento.key == pygame.K_UP or evento.key == pygame.K_w:
                         selecionado = (selecionado - 1) % 4
-                        print(selecionado)
                     elif evento.key == pygame.K_DOWN or evento.key == pygame.K_s:
                         selecionado = (selecionado + 1) % 4
-                        print(selecionado)
 
                     elif evento.key == pygame.K_BACKSPACE:
+                        #posso retorar ao menu principal
                         estado_atual = EstadoJogo.SELECAO_PRINCIPAL
                         selecionado = 0
                     elif evento.key == pygame.K_RETURN:
+                        #seleciono minha dificuldade
                         if selecionado == 0:    # FÁCIL
                             dific = 4
                             return dific
@@ -166,14 +176,14 @@ def Gameover():
                 if estado_atual == EstadoJogo.SELECAO_TRY_AGAIN:
                     if evento.key == pygame.K_UP or evento.key == pygame.K_w:
                         selecionado = (selecionado - 1) % 2
-                        print(selecionado)
                     elif evento.key == pygame.K_DOWN or evento.key == pygame.K_s:
                         selecionado = (selecionado + 1) % 2
-                        print(selecionado)
+
                     elif evento.key == pygame.K_RETURN:
                         if selecionado == 0: 
                             estado_atual = EstadoJogo.SELECAO_PRINCIPAL
                             selecionado = 0
+                            #não retorna nada pois nesse caso o proximo estado sempre será o menu
                             return 
                         elif selecionado == 1:  
                             return "sair"

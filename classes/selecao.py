@@ -1,8 +1,13 @@
 import pygame
+#lista de estados
+class EstadoJogo:
+    SELECAO_PRINCIPAL = "principal"
+    SELECAO_DIFICULDADE = "dificuldade"
+    SELECAO_TRY_AGAIN = "try_again"
 
 class Selecao():
     def __init__(self):
-
+        #lista de diversos sprites
         self.selecao_1 = [
             [
                 pygame.image.load("sprites/animação/seleção/star_0.png").convert_alpha(),
@@ -54,13 +59,15 @@ class Selecao():
         self.frame_atual = 1
 
     def desenhar_selecao(self, tela, selecionado, selecao_tipo):
-        
+        #os valores recebido vieram da tela inicial
+        #dependedo do estado há um grupo de sprites e um numero de itens
         if selecao_tipo == "principal":
             sprites = self.selecao_1
             num_itens = 2
         elif selecao_tipo == "dificuldade":
             sprites = self.dificuldade_selecao
             num_itens = 4
+            #no caso da dificuldade e do try_again, há imagens estáticas, então apenas às adiciono na tela
             tela.blit(self.dificuldade, (400 - (self.dificuldade.get_width()//2), 300))
         elif selecao_tipo == "try_again":
             sprites = self.game_over_select
@@ -70,6 +77,7 @@ class Selecao():
 
         for i in range(num_itens):
             if i == selecionado:
+                #para cada item eu mudo o sprite, para dar um destaque á ele e habilito a seta
                 imagem = sprites[i][self.frame_atual]
                 seta = True
             else:
@@ -80,7 +88,9 @@ class Selecao():
             largura = imagem.get_width()
             x_pos = 400 - (largura//2)
 
+            #posiciono cada grupo de sprites com base no seu valor i, que se refere a quantidade de itens que terá no menu
             if selecao_tipo == "principal":
+                #então entre os itens terá uma distancha de 65 pixeis entre cada um
                 y_pos = 300 + i * 65
             elif selecao_tipo == "dificuldade":
                 y_pos = 350 + i * 45
@@ -91,11 +101,9 @@ class Selecao():
             rect.x = x_pos
 
             tela.blit(imagem, rect)
+            #printo a seta
             if seta:
                 tela.blit(self.seta, (x_pos-30, y_pos))
 
-class EstadoJogo:
-    SELECAO_PRINCIPAL = "principal"
-    SELECAO_DIFICULDADE = "dificuldade"
-    SELECAO_TRY_AGAIN = "try_again"
+
         

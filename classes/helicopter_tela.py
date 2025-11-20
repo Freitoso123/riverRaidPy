@@ -3,6 +3,7 @@ import random
 
 class Helicoptero_tela():
     def __init__(self, pos_anim_x, pos_anim_y):
+        #lista de sprites
         self.heli = [
             pygame.image.load("sprites/animação/heli/helic3.png"),
             pygame.image.load("sprites/animação/heli/helic2.png"),
@@ -11,6 +12,7 @@ class Helicoptero_tela():
             ]
         tamanho = random.randint(32, 64)
 
+        #trandorma todos os sprites em um tamanho aleatório
         for i in range(len(self.heli)):
             self.heli[i] = pygame.transform.scale(self.heli[i], (tamanho, tamanho))
 
