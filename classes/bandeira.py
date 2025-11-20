@@ -1,8 +1,7 @@
 import pygame
 
-class Bandeira_animação(pygame.sprite.Sprite):
+class Bandeira_animação():
     def __init__(self, pos_anim_x, pos_anim_y):
-        super().__init__()
         self.bandeiras = [
             pygame.image.load("sprites/animação/bandeira/bandeira_0.png"),
             pygame.image.load("sprites/animação/bandeira/bandeira_1.png"),

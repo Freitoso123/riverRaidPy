@@ -54,7 +54,6 @@ def telainicial():
     bandeira_x = 500
     bandeira_y = 50
     bandeira = Bandeira_animação(bandeira_x, bandeira_y)
-    movimento_bandeira = pygame.sprite.Group(bandeira)
 
     while True:
         tempo.tick(30)
@@ -97,7 +96,7 @@ def telainicial():
             bandeira_x -= 4
         bandeira.rect.x = bandeira_x
         bandeira.printa_bandeira(0.1)
-        movimento_bandeira.draw(gameDisplay)
+        gameDisplay.blit(bandeira.animado, (bandeira_x, bandeira_y))
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -110,13 +109,12 @@ def telainicial():
                         selecionado = (selecionado - 1) % 2
                     elif evento.key == pygame.K_DOWN or evento.key == pygame.K_s:
                         selecionado = (selecionado + 1) % 2
-                        
+
                     elif evento.key == pygame.K_RETURN:
                         if selecionado == 0: 
                             estado_atual = EstadoJogo.SELECAO_DIFICULDADE
                         elif selecionado == 1:  
-                            pygame.quit()
-                            quit()
+                            return "sair"
                         
                 elif estado_atual == EstadoJogo.SELECAO_DIFICULDADE:
                     if evento.key == pygame.K_UP or evento.key == pygame.K_w:
@@ -162,8 +160,7 @@ def Gameover():
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+                return "sair"
             #=======SELEÇÃO_GAME_OVER=======
             elif evento.type == pygame.KEYDOWN:
                 if estado_atual == EstadoJogo.SELECAO_TRY_AGAIN:
@@ -177,11 +174,9 @@ def Gameover():
                         if selecionado == 0: 
                             estado_atual = EstadoJogo.SELECAO_PRINCIPAL
                             selecionado = 0
-                            telainicial()
-                            return
+                            return 
                         elif selecionado == 1:  
-                            pygame.quit()
-                            quit()
+                            return "sair"
                         
         selecao_desenho()
 
