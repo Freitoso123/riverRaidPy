@@ -2,6 +2,7 @@ import pygame, random, time
 from classes.aviao import Aviao
 from classes.helic import *
 from classes.mapa import *
+from classes.pontuacao import pontuacao
 
 #criei um função separada para a lógica do jogo por conta da administração de estados do jogo, para que fosse possivel
 #recomeçar o jogo
@@ -28,7 +29,10 @@ def Jogando(dif):
     first_map = True
 
     col_player = False
-    
+
+    pontos = 0
+    pontuacao(pontos)
+
     while True:
 
         for evento in pygame.event.get():
@@ -101,6 +105,9 @@ def Jogando(dif):
                 if helic_hitted == True:
                     helic_list.remove(helic)
                     balas.remove(bala)
+                    pontos += 60
+        pontuacao(pontos)
+
 
         #gameOver
         if col_player == True:
