@@ -3,7 +3,7 @@ from classes.caem import Caem
 
 class Mapa(Caem):
     def __init__(self, mapModule, velY):
-        modulesList = ["map0.png", "map1.png", "map2.png"]
+        modulesList = ["map0.png", "map1.png", "map2.png", "map3.png", "map4.png", "map5.png", "map6.png", "map7.png"]
         sprite = "sprites/maps/" + modulesList[mapModule]
         height = (960, 960, 960)
         dims=(800, height[mapModule])

@@ -33,7 +33,7 @@ def Estados_do_jogo():
 
         elif estado_atual == Estados.estado_jogando:
             #aqui não há comparações pois só pode ir para game_over
-            Jogando(dif)
+            Jogando(dif)     
             if deleta:
                 desinstalar_jogo()
                 break
