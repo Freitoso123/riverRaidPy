@@ -76,7 +76,7 @@ def Jogando(dif):
 
             #gameOver
             if module.colisaoMask(player):
-                return
+                return pontos
 
         for bala in balas:
             bala.imprimir()
@@ -112,7 +112,7 @@ def Jogando(dif):
         #gameOver
         if col_player == True:
             #não retorna nada pois o meu próximo estado é game_over
-            return
+            return pontos
 
         player.imprimir()
         player.movPlayer(tecla)

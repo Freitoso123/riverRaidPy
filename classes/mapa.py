@@ -5,11 +5,10 @@ class Mapa(Caem):
     def __init__(self, mapModule, velY):
         modulesList = ["map0.png", "map1.png", "map2.png", "map3.png", "map4.png", "map5.png", "map6.png", "map7.png"]
         sprite = "sprites/maps/" + modulesList[mapModule]
-        height = (960, 960, 960)
-        dims=(800, height[mapModule])
+        dims=(800, 960)
         self.dims = dims
-        pos = [0, -1*dims[1]]
+        pos = [0, -960]
         super().__init__(sprite, dims, pos, velY)
 
 def gerarMapa():
-    return Mapa((random.randint(0,2)), 7)
+    return Mapa((random.randint(0,7)), 7)

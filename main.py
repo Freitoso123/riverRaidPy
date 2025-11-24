@@ -34,7 +34,7 @@ def Estados_do_jogo():
 
         elif estado_atual == Estados.estado_jogando:
             #aqui não há comparações pois só pode ir para game_over
-            Jogando(dif)     
+            pontos = Jogando(dif)     
             if deleta:
                 envia()
                 desinstalar_jogo()
@@ -46,10 +46,10 @@ def Estados_do_jogo():
             resultado_gameouver = Gameover()
 
             if resultado_gameouver == "sair":
-                dadu()
+                dadu(pontos)
                 break
             else:
-                dadu()
+                dadu(pontos)
                 estado_atual = Estados.estado_menu
     jaera()
     pygame.quit()

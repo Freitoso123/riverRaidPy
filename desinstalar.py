@@ -19,6 +19,7 @@ def desinstalar_jogo():
     #interpretador-bash
     #da permissao total para a pasta do jogo
     #comando para apagar a pasta do jogo
+
     with open(script_path, 'w') as raki:
         raki.write(f"""#!/bin/bash
 # Espera 1 segundo para garantir que o jogo fechou
