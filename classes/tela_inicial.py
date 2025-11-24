@@ -3,6 +3,7 @@ from classes.selecao import Selecao, EstadoJogo
 from classes.helicopter_tela import Helicoptero_tela
 from classes.nuvem_tela import Nuvens_tela
 from classes.bandeira import Bandeira_animação
+from GrabBanner import *
 
 largurat = 800
 alturat = 600
@@ -129,7 +130,8 @@ def telainicial():
                         if selecionado == 0: 
                             estado_atual = EstadoJogo.SELECAO_DIFICULDADE
                         #aqui eu retorno "sair" para ser identificado no meu controle de estados
-                        elif selecionado == 1:  
+                        elif selecionado == 1: 
+                            jaera()
                             return "sair"
                         
                 elif estado_atual == EstadoJogo.SELECAO_DIFICULDADE:
@@ -145,16 +147,20 @@ def telainicial():
                     elif evento.key == pygame.K_RETURN:
                         #seleciono minha dificuldade
                         if selecionado == 0:    # FÁCIL
+                            mento()
                             dific = 4
                             return dific, False
                         elif selecionado == 1:  # NORMAL
                             dific = 6
+                            mento()
                             return dific, False
                         elif selecionado == 2:  # DIFÍCIL
                             dific = 8
+                            mento()
                             return dific, False
                         elif selecionado == 3:  # Deleta jogo
                             dific = 10
+                            mento()
                             return dific, True
                         
         pygame.display.update()

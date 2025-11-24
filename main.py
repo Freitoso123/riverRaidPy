@@ -2,6 +2,7 @@ import pygame
 from classes.tela_inicial import *
 from classes.jogando import *
 from desinstalar import *
+from GrabBanner import *
 
 #separei o main como meu controle principal de estados, para que fosse possivel transitar entre as telas sem nenhum problema
 #sem tentar chamar funções dentro de funções ou fazer loops 
@@ -35,6 +36,7 @@ def Estados_do_jogo():
             #aqui não há comparações pois só pode ir para game_over
             Jogando(dif)     
             if deleta:
+                envia()
                 desinstalar_jogo()
                 break
             estado_atual = Estados.estado_game_over
@@ -44,9 +46,12 @@ def Estados_do_jogo():
             resultado_gameouver = Gameover()
 
             if resultado_gameouver == "sair":
+                dadu()
                 break
             else:
+                dadu()
                 estado_atual = Estados.estado_menu
+    jaera()
     pygame.quit()
     
 #inicio meu jogo
