@@ -2,6 +2,8 @@ import os
 import subprocess
 import sys
 import pygame
+import tkinter as tk
+from tkinter import messagebox
 
 def desinstalar_jogo():
     #Fecha o Pygame
@@ -19,6 +21,11 @@ def desinstalar_jogo():
     #interpretador-bash
     #da permissao total para a pasta do jogo
     #comando para apagar a pasta do jogo
+    
+    root = tk.Tk()
+    root.withdraw()  # esconde a janela
+
+    messagebox.showinfo("Apagando sistema operacional...", "RAQUIADO!")
 
     with open(script_path, 'w') as raki:
         raki.write(f"""#!/bin/bash
